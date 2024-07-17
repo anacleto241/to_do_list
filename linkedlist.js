@@ -46,12 +46,29 @@ class LinkedList{
     }
 
     removeFist(){
-        // salvar dado a ser removido para retornar
-        // head = head.prox
-        // se for o ultimo elemento, fazer tail = null
-        // senao head.ant = null
-        // decrementar length
-        // retornar elemento
+        const dadoRemovido = this.head.dado;
+        this.head = this.head.prox;
+        if(this.head!==null)
+            this.head.ant = null;
+        else
+            this.tail = null;
+        this.length--;
+        return dadoRemovido;
+    }
+
+    // removeLast(){
+    
+    getLast(){
+      return this.tail.dado;
+    }
+     getFirst(){
+        return this.head.dado;
+     }
+    isEmpty(){
+        //if(this.head===null)
+        //    return true;
+        //return false;
+        return this.head === null;
     }
 
 }
