@@ -104,7 +104,7 @@ function comparaTarefasDataHora(tarefa1, tarefa2) {
 function saveLinkedListToLocalStorage() {
   console.log("saveLinkedListToLocalStorage");
   let listaParaSalvar = [];
-  minhaLista.forEach((item) => {
+  for(const item of minhaLista){
       listaParaSalvar.push({
           _descricao: item.descricao,
           _prioridade: item.prioridade,
@@ -112,7 +112,7 @@ function saveLinkedListToLocalStorage() {
           _hora: item.hora
       });
       console.log(item.toString());
-  });
+  };
   let jsonStr = JSON.stringify(listaParaSalvar);
   console.log(jsonStr);
   localStorage.setItem('myLinkedList', jsonStr);
