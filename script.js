@@ -1,12 +1,17 @@
- // Crie uma instância da fila
-
+const minhaLista = new LinkedList();
 
  // Função para adicionar um elemento no Inicio
  function adicionarElementoInicio() {
     const descricao = document.getElementById("txtnovaTarefa").value.trim();
     const prioridade = document.getElementById("txtnovaPrioridade").value.trim();
 
-    // Implementar
+    const novaTarefa = new Tarefa(descricao,prioridade,obterDataAtual(),obterHoraAtual());
+    minhaLista.addFirst(novaTarefa);
+    console.log(minhaLista.toString());
+    //limpar input
+    document.getElementById("txtnovaTarefa").value = "";
+    document.getElementById("txtnovaPrioridade").value = "";
+    document.getElementById("txtnovaTarefa").focus();
     
  }
  //---------

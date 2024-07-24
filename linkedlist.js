@@ -45,7 +45,7 @@ class LinkedList{
         return true;
     }
 
-    removeFist(){
+    removeFirst(){
         const dadoRemovido = this.head.dado;
         this.head = this.head.prox;
         if(this.head!==null)
@@ -71,4 +71,34 @@ class LinkedList{
         return this.head === null;
     }
 
-}
+    //-------------------------------------
+//Quando um objeto tem uma propriedade [Symbol.iterator], ele pode ser iterado com construções como [ for(const item of minhaLista)*/
+
+
+[Symbol.iterator]() {         
+    let currentNode = this.head;
+          return {
+            next: function() {
+              if (currentNode!==null) {
+                let value = currentNode.dado;
+                currentNode = currentNode.prox;
+                return { value: value, done: false };
+              } else {
+                return { done: true };
+              }
+            }
+          };
+        }
+  //—----------------
+    toString() {
+          let result = "";
+          let currentNode = this.head;
+          while (currentNode !== null) {
+              result += currentNode.dado + (currentNode.prox ? " -> " : "");
+              currentNode = currentNode.prox;
+          }
+          return result;
+      }
+  
+
+}// fim classe LinkedList
