@@ -16,20 +16,38 @@ const minhaLista = new LinkedList();
  }
  //---------
   function adicionarElementoFinal() {
-    
+    const descricao = document.getElementById("txtnovaTarefa").value.trim();
+    const prioridade = document.getElementById("txtnovaPrioridade").value.trim();
+
+    const novaTarefa = new Tarefa(descricao,prioridade,obterDataAtual(),obterHoraAtual());
+    minhaLista.addLast(novaTarefa);
+    console.log(minhaLista.toString());
+    //limpar input
+    document.getElementById("txtnovaTarefa").value = "";
+    document.getElementById("txtnovaPrioridade").value = "";
+    document.getElementById("txtnovaTarefa").focus();
+    atualizarLista();
   }
  
  
 //--------------------------------------------------------------------------------------------
- // Função para remover o primeiro elemento da fila
- function removerElemento() {
+ // Função para remover o primeiro elemento da lista
+ function removerElementoInicio() {
+    if(!minhaLista.isEmpty()){
+      const tarefaRealizada = minhaLista.removeFirst();
+      mostrarMensagemRemocao(tarefaRealizada);
+      atualizarLista();
+    }
+    else{
+      alert("Lista de Tarefas Vazia");
+    }
    
  }
 
 //--------------------------------------------------------------------------------------------
 function mostrarMensagemRemocao(tarefaRealizada) {
     const mensagem = document.getElementById("mensagem-remocao");
-    mensagem.innerHTML ="Tarefa "+ tarefaRealizada.descricao;
+    mensagem.innerHTML ="Tarefa realizada: "+ tarefaRealizada.descricao;
     mensagem.style.display = "block";
   }
 //-------------------------------------------------------------------------------------------- 
@@ -39,10 +57,10 @@ function mostrarMensagemRemocao(tarefaRealizada) {
        document.getElementById("list_listadeTarefas");
    const lblTarefas = 
           document.getElementById("lblmostraTarefas");
-          
+   listaTarefas.innerHTML = "";    // limpar antes de mostrar
    if(!minhaLista.isEmpty()){
       lblTarefas.innerHTML = "Lista de Tarefas";
-      listaTarefas.innerHTML = ""; // limpar antes de mostrar
+       // limpar antes de mostrar
       for(const tarefa of minhaLista){
           const novaLinha = document.createElement("li");
           novaLinha.innerHTML = tarefa.toString();
