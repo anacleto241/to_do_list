@@ -12,7 +12,7 @@ const minhaLista = new LinkedList();
     document.getElementById("txtnovaTarefa").value = "";
     document.getElementById("txtnovaPrioridade").value = "";
     document.getElementById("txtnovaTarefa").focus();
-    
+    atualizarLista();
  }
  //---------
   function adicionarElementoFinal() {
@@ -35,7 +35,17 @@ function mostrarMensagemRemocao(tarefaRealizada) {
 //-------------------------------------------------------------------------------------------- 
 // Função para atualizar a exibição da fila
  function atualizarLista() {
-   
+   const listaTarefas = 
+       document.getElementById("list_listadeTarefas");
+   const lblTarefas = 
+          document.getElementById("lblmostraTarefas");
+   if(!minhaLista.isEmpty()){
+      lblTarefas.innerHTML = "Lista de Tarefas";
+   }
+   else{
+        lblTarefas.innerHTML = "Lista de Tarefas Vazia";
+      }
+      
  }
  //--------------------------------------------------------------------------------------------
   //FUNÇÕES COMPLEMENTARES PARA A APLICAÇÃO
