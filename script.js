@@ -39,8 +39,15 @@ function mostrarMensagemRemocao(tarefaRealizada) {
        document.getElementById("list_listadeTarefas");
    const lblTarefas = 
           document.getElementById("lblmostraTarefas");
+          
    if(!minhaLista.isEmpty()){
       lblTarefas.innerHTML = "Lista de Tarefas";
+      listaTarefas.innerHTML = ""; // limpar antes de mostrar
+      for(const tarefa of minhaLista){
+          const novaLinha = document.createElement("li");
+          novaLinha.innerHTML = tarefa.toString();
+          listaTarefas.appendChild(novaLinha);
+      }
    }
    else{
         lblTarefas.innerHTML = "Lista de Tarefas Vazia";
