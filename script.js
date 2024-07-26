@@ -43,6 +43,18 @@ const minhaLista = new LinkedList();
     }
    
  }
+ //--------------------------------------------------------------------------------------------
+ // Função para remover o ultimo elemento da lista
+ function removerElementoFinal() {
+  if(!minhaLista.isEmpty()){
+    const tarefaRealizada = minhaLista.removeLast();
+    mostrarMensagemRemocao(tarefaRealizada);
+    atualizarLista();
+  }
+  else{
+    alert("Lista de Tarefas Vazia");
+  }
+}
 
 //--------------------------------------------------------------------------------------------
 function mostrarMensagemRemocao(tarefaRealizada) {

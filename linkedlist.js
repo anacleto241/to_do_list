@@ -56,7 +56,16 @@ class LinkedList{
         return dadoRemovido;
     }
 
-    // removeLast(){
+    removeLast(){
+        const dadoRemovido = this.tail.dado;
+        this.tail = this.tail.ant;
+        if(this.tail!==null)
+            this.tail.prox = null;
+        else
+            this.head = null;
+        this.length--;
+        return dadoRemovido;
+    }
     
     getLast(){
       return this.tail.dado;
@@ -99,6 +108,40 @@ class LinkedList{
           }
           return result;
       }
+   //----------------   
+   addAtIndex(index, data) {
+    if (index < 0) {
+      // Verifica se o índice é válido (maior ou igual a zero)
+      console.log("Indice invalido. O indice deve ser um valor inteiro maior ou igual a zero.");
+      return false;
+    }
+  
+    if (index === 0) 
+      // Se o índice for zero, chama o método addFirst() para adicionar no início da lista
+      this.addFirst(data);
+
+    if (index >= this.length) 
+        this.addLast(data);
+
+    const newNode = new Node(data);
+    if (newNode === null) 
+      return false;
+    
+    let noAtual = this.head;
+    let indiceAtual = 0;
+    while (indiceAtual < index - 1) {
+      // Percorre a lista até encontrar o nó anterior ao índice especificado
+      noAtual = noAtual.prox;
+      indiceAtual++;
+    }
+  // reorganiza os ponteiros
+    newNode.ant = noAtual;
+    newNode.prox = noAtual.next;
+    noAtual.prox.ant = newNode;
+    noAtual.prox = newNode;
+    this.length++;
+    return true;
+  }   
   
 
 }// fim classe LinkedList
