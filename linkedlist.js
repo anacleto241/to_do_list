@@ -14,6 +14,7 @@ class LinkedList{
     }
 
     addFirst(novoDado){
+        console.log("addFirst");
         const novoNo = new No(novoDado);
         if(novoNo===null)
             return false;
@@ -110,21 +111,24 @@ class LinkedList{
       }
    //----------------   
    addAtIndex(index, data) {
+    console.log("Index:"+index);
     if (index < 0) {
-      // Verifica se o índice é válido (maior ou igual a zero)
       console.log("Indice invalido. O indice deve ser um valor inteiro maior ou igual a zero.");
       return false;
     }
   
-    if (index === 0) 
+    if (index === 0) {
       // Se o índice for zero, chama o método addFirst() para adicionar no início da lista
-      this.addFirst(data);
+      console.log("Adicionando no inicio");
+      return this.addFirst(data);
+    }
 
     if (index >= this.length) 
-        this.addLast(data);
+      return  this.addLast(data);
 
-    const newNode = new Node(data);
-    if (newNode === null) 
+    const novoNo = new No(data);
+    console.log("Novo no"+novoNo);
+    if (novoNo === null) 
       return false;
     
     let noAtual = this.head;
@@ -134,11 +138,11 @@ class LinkedList{
       noAtual = noAtual.prox;
       indiceAtual++;
     }
-  // reorganiza os ponteiros
-    newNode.ant = noAtual;
-    newNode.prox = noAtual.next;
-    noAtual.prox.ant = newNode;
-    noAtual.prox = newNode;
+    // reorganiza os ponteiros
+    novoNo.ant = noAtual;
+    novoNo.prox = noAtual.prox;
+    noAtual.prox.ant = novoNo;
+    noAtual.prox = novoNo;
     this.length++;
     return true;
   }   

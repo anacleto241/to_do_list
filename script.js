@@ -28,6 +28,22 @@ const minhaLista = new LinkedList();
     document.getElementById("txtnovaTarefa").focus();
     atualizarLista();
   }
+
+  //--------------------------------------------------------------------------------------------
+  function adicionarIndice() {
+    const descricao = document.getElementById("txtnovaTarefa").value.trim();
+    const prioridade = document.getElementById("txtnovaPrioridade").value.trim();
+    const posicao =parseInt( document.getElementById("txtIndice").value.trim());
+
+    const novaTarefa = new Tarefa(descricao,prioridade,obterDataAtual(),obterHoraAtual());
+    minhaLista.addAtIndex(posicao,novaTarefa);
+    
+    //limpar input
+    document.getElementById("txtnovaTarefa").value = "";
+    document.getElementById("txtnovaPrioridade").value = "";
+    document.getElementById("txtnovaTarefa").focus();
+    atualizarLista();
+  }
  
  
 //--------------------------------------------------------------------------------------------
