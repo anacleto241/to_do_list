@@ -1,64 +1,56 @@
 const minhaLista = new LinkedList();
 
- // Função para adicionar um elemento no Inicio
- function adicionarElementoInicio() {
-    const descricao = document.getElementById("txtnovaTarefa").value.trim();
-    const prioridade = document.getElementById("txtnovaPrioridade").value.trim();
-
-    const novaTarefa = new Tarefa(descricao,prioridade,obterDataAtual(),obterHoraAtual());
-    minhaLista.addFirst(novaTarefa);
-    console.log(minhaLista.toString());
-    //limpar input
-    document.getElementById("txtnovaTarefa").value = "";
-    document.getElementById("txtnovaPrioridade").value = "";
-    document.getElementById("txtnovaTarefa").focus();
-    atualizarLista();
- }
- //---------
-  function adicionarElementoFinal() {
-    const descricao = document.getElementById("txtnovaTarefa").value.trim();
-    const prioridade = document.getElementById("txtnovaPrioridade").value.trim();
-
-    const novaTarefa = new Tarefa(descricao,prioridade,obterDataAtual(),obterHoraAtual());
-    minhaLista.addLast(novaTarefa);
-    console.log(minhaLista.toString());
-    //limpar input
-    document.getElementById("txtnovaTarefa").value = "";
-    document.getElementById("txtnovaPrioridade").value = "";
-    document.getElementById("txtnovaTarefa").focus();
-    atualizarLista();
-  }
-
   //--------------------------------------------------------------------------------------------
-  function adicionarIndice() {
+  function adicionarTarefa() {
     const descricao = document.getElementById("txtnovaTarefa").value.trim();
-    const prioridade = document.getElementById("txtnovaPrioridade").value.trim();
-    const posicao =parseInt( document.getElementById("txtIndice").value.trim());
-
-    const novaTarefa = new Tarefa(descricao,prioridade,obterDataAtual(),obterHoraAtual());
-    minhaLista.addAtIndex(posicao,novaTarefa);
-    
-    //limpar input
-    document.getElementById("txtnovaTarefa").value = "";
-    document.getElementById("txtnovaPrioridade").value = "";
-    document.getElementById("txtnovaTarefa").focus();
-    atualizarLista();
+    const posicao = parseInt(document.getElementById("txtnovaPrioridade").value.trim());
+    const novaTarefa = new Tarefa(descricao, posicao, obterDataAtual(), obterHoraAtual());
+  
+  let index = 0;
+  
+  if (minhaLista.isEmpty()) {
+      minhaLista.addFirst(novaTarefa);
+      console.log("Lista vazia");
+  } else {
+      let i = 0;
+      for (const tarefa of minhaLista) {
+          if (posicao < tarefa.prioridade) {
+              index = i;
+              break;
+          }
+          index = ++i;
+      }
+      minhaLista.addAtIndex(index, novaTarefa);
   }
- 
+  // Limpar inputs e atualizar a lista
+  document.getElementById("txtnovaTarefa").value = "";
+  document.getElementById("txtnovaPrioridade").value = "";
+  document.getElementById("txtnovaTarefa").focus();
+  atualizarLista();
+  
+  }
  
 //--------------------------------------------------------------------------------------------
- // Função para remover o primeiro elemento da lista
- function removerElementoInicio() {
+ 
+  function removerElementoInicio() {
     if(!minhaLista.isEmpty()){
       const tarefaRealizada = minhaLista.removeFirst();
       mostrarMensagemRemocao(tarefaRealizada);
+      const dataInicio = tarefaRealizada.data;
+      const dataFim = obterDataAtual();
+      const diferencaDias = calcularDiferencaDias(dataInicio, dataFim);
+      const horaInicio = tarefaRealizada.hora;
+      const horaFim = obterHoraAtual();
+      const diferencaHoras = calcularDiferencaHoras(horaInicio, horaFim);
+      alert(`Tempo para realizar a tarefa: ${diferencaDias} dias e ${diferencaHoras}`);
       atualizarLista();
     }
     else{
+
       alert("Lista de Tarefas Vazia");
     }
-   
- }
+  }
+
  //--------------------------------------------------------------------------------------------
  // Função para remover o ultimo elemento da lista
  function removerElementoFinal() {
@@ -66,6 +58,23 @@ const minhaLista = new LinkedList();
     const tarefaRealizada = minhaLista.removeLast();
     mostrarMensagemRemocao(tarefaRealizada);
     atualizarLista();
+  }
+  else{
+    alert("Lista de Tarefas Vazia");
+  }
+}
+
+//--------------------------------------------------------------------------------------------
+
+function tarefaMaisAntiga() {
+  if(!minhaLista.isEmpty()){
+    let tarefaMaisAntiga = minhaLista.getFirst();
+    for(const tarefa of minhaLista){
+      tarefaMaisAntiga = comparaTarefasDataHora(tarefa, tarefaMaisAntiga)
+    }
+    const mensagem = document.getElementById("mensagem-remocao");
+    mensagem.innerHTML ="Tarefa mais antiga: "+ tarefaMaisAntiga.descricao;
+    mensagem.style.display = "block";
   }
   else{
     alert("Lista de Tarefas Vazia");
@@ -81,25 +90,15 @@ function mostrarMensagemRemocao(tarefaRealizada) {
 //-------------------------------------------------------------------------------------------- 
 // Função para atualizar a exibição da fila
  function atualizarLista() {
-   const listaTarefas = 
-       document.getElementById("list_listadeTarefas");
-   const lblTarefas = 
-          document.getElementById("lblmostraTarefas");
-   listaTarefas.innerHTML = "";    // limpar antes de mostrar
-   if(!minhaLista.isEmpty()){
-      lblTarefas.innerHTML = "Lista de Tarefas";
-       // limpar antes de mostrar
-      for(const tarefa of minhaLista){
-          const novaLinha = document.createElement("li");
-          novaLinha.innerHTML = tarefa.toString();
-          listaTarefas.appendChild(novaLinha);
-      }
-   }
-   else{
-        lblTarefas.innerHTML = "Lista de Tarefas Vazia";
-      }
-      
- }
+    const lista = document.getElementById("list_listadeTarefas");
+    lista.innerHTML = "";
+    for (const tarefa of minhaLista) {
+        const itemLista = document.createElement("li");
+        itemLista.textContent = `${tarefa.descricao} - Prioridade: ${tarefa.prioridade} - Data: ${tarefa.data} - Hora: ${tarefa.hora}`;
+        lista.appendChild(itemLista);
+    }
+  }
+
  //--------------------------------------------------------------------------------------------
   //FUNÇÕES COMPLEMENTARES PARA A APLICAÇÃO
  //-----------------------------------------

@@ -27,19 +27,11 @@
           <label for="lblnovaPrioridade">Prioridade:</label>
           <br />
           <input type="text" class="form-control" id="txtnovaPrioridade">
-          <br />
-          <label for="lblIndice">Indice:</label>
+          
+        <button class="btn btn-info" onclick="adicionarTarefa()">Adicionar Tarefa</button>
 
-        <br />
-        <input type="text" class="form-control" id="txtIndice">
-        
-        <br />
-        <button class="btn btn-info" onclick="adicionarElementoInicio()">Adicionar Inicio</button>
-        <button class="btn btn-info" onclick="adicionarElementoFinal()">Adicionar Fim</button>
-        <button class="btn btn-info" onclick="adicionarIndice()">Adicionar no Índice</button>
-
-        <button class="btn btn-warning" onclick="removerElementoInicio()">Retirar do Inicio</button>
-        <button class="btn btn-warning" onclick="removerElementoFinal()">Retirar do Final</button>
+        <button class="btn btn-warning" onclick="removerElementoInicio()">Finalizar tarefa</button>
+        <button class="btn btn-warning" onclick="tarefaMaisAntiga()">Exibir tarefa mais antiga</button>
 
         <br /><br />
         <button class="btn btn-warning" onclick="saveLinkedListToLocalStorage()">Salvar</button>
@@ -51,7 +43,7 @@
       <ul id="list_listadeTarefas"></ul>    
       <footer class="footer  text-light text-center mt-5 py-3">
       <div class="container text-center">
-        <span class="text-light">Desenvolvido por IFSULDEMINAS <i class="fas fa-heart"></i></span>
+        <span class="text-light">Desenvolvido por Fabrício Anacleto Ferreira <i class="fas fa-heart"></i></span>
       </div>
     </footer>
   </div>

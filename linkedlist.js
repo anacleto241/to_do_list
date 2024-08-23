@@ -14,10 +14,10 @@ class LinkedList{
     }
 
     addFirst(novoDado){
-        console.log("addFirst");
         const novoNo = new No(novoDado);
         if(novoNo===null)
             return false;
+
         if(this.head===null)// vazia
             this.tail = novoNo;
         else{
@@ -111,10 +111,9 @@ class LinkedList{
       }
    //----------------   
    addAtIndex(index, data) {
-    console.log("Index:"+index);
-    if (index < 0) {
-      console.log("Indice invalido. O indice deve ser um valor inteiro maior ou igual a zero.");
-      return false;
+    if (index < 0 || index > this.length) {
+      // Se o índice for inválido, retorna false
+      return false
     }
   
     if (index === 0) {
@@ -145,6 +144,7 @@ class LinkedList{
     noAtual.prox = novoNo;
     this.length++;
     return true;
+
   }   
   
 
